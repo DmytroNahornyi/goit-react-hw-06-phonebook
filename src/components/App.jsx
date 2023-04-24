@@ -1,16 +1,25 @@
-export const App = () => {
+import { ToastContainer } from 'react-toastify';
+import ContactForm from './phonebook/ContactForm/ContactForm';
+import ContactList from './phonebook/ContactList/ContactList';
+import Filter from './phonebook/Filter/Filter';
+import { useSelector } from 'react-redux';
+import { AppContainer, Title } from './phonebook/Phonebook.styled';
+
+export function App() {
+  const contacts = useSelector(state => state.contact);
+
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <AppContainer>
+      <Title>Phonebook</Title>
+      <ContactForm />
+      <Filter />{' '}
+      {contacts.length > 0 && (
+        <>
+          <h2>Contacts</h2>
+          <ContactList />
+          <ToastContainer />
+        </>
+      )}
+    </AppContainer>
   );
-};
+}
